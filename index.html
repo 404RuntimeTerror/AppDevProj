@@ -1,1052 +1,1086 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
-<!--   03:20:39 GMT -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Drophut - Single Product eCommerce Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    
-    <!-- CSS 
-    ========================= -->
-   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miko Bitar — IT Application Specialist &amp; Fullstack Web Developer</title>
+<meta name="description" content="Miko Bitar — Legacy Systems. Modern Web. Real-Time Data. One Developer.">
 
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" href="assets/css/plugins.css">
-    
-    <!-- Main Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+<style>
+  :root{
+    --bg-0:#0a0a0f;
+    --bg-1:#101018;
+    --bg-2:#151520;
+    --bg-card:#12121b;
+    --line:#23232f;
+    --line-soft:#1a1a24;
+    --text-0:#eef0f6;
+    --text-1:#a9adc1;
+    --text-2:#6d7189;
+    --blue:#2563eb;
+    --cyan:#06b6d4;
+    --green:#10b981;
+    --grad: linear-gradient(120deg, var(--blue), var(--cyan));
+    --grad-soft: linear-gradient(120deg, rgba(37,99,235,.16), rgba(6,182,212,.16));
+    --mono: 'JetBrains Mono', monospace;
+    --head: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --radius: 14px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  ::selection{ background:var(--cyan); color:#04141a; }
+
+  body{
+    background:var(--bg-0);
+    color:var(--text-0);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  img,svg{ display:block; max-width:100%; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  .container{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+    position:relative;
+    z-index:2;
+  }
+
+  section{ position:relative; padding:120px 0; overflow:hidden; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px; height:1px;
+    background:var(--grad);
+  }
+  h1,h2,h3,h4{ font-family:var(--head); font-weight:600; letter-spacing:-0.01em; }
+  .section-title{
+    font-size:clamp(1.8rem, 3.4vw, 2.6rem);
+    margin-bottom:14px;
+  }
+  .section-sub{
+    color:var(--text-1);
+    max-width:560px;
+    margin-bottom:56px;
+    font-size:1.02rem;
+  }
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .green-text{ color:var(--green); }
+
+  /* ============================================================
+     GLOBAL PARALLAX FIELD — background layers spanning the whole
+     document. Each blob lags behind normal scroll (slower than
+     the foreground) via transform:translateY(scrollY*(1-speed)).
+     ============================================================ */
+  .grid-backdrop{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+    background-size:56px 56px;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 30%, black 10%, transparent 80%);
+  }
+
+  .parallax-field{
+    position:absolute; top:0; left:0; width:100%; height:1px; z-index:0; pointer-events:none;
+  }
+  .p-blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    will-change:transform;
+  }
+  .p-blob.blue{ background:radial-gradient(circle, rgba(37,99,235,.30), transparent 70%); }
+  .p-blob.cyan{ background:radial-gradient(circle, rgba(6,182,212,.24), transparent 70%); }
+  .p-blob.green{ background:radial-gradient(circle, rgba(16,185,129,.22), transparent 70%); }
+
+  .glare{
+    position:fixed;
+    top:0; left:0;
+    width:640px; height:640px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(6,182,212,.10), rgba(37,99,235,.05) 40%, transparent 70%);
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    z-index:1;
+    transition:opacity .3s ease;
+    will-change:transform;
+  }
+
+  /* ============================================================
+     SCROLLING CODE TICKER — literal horizontal parallax scroll,
+     two rows moving opposite directions at different speeds.
+     ============================================================ */
+  .code-ticker{
+    position:relative; z-index:2;
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+    background:var(--bg-1);
+    overflow:hidden;
+    padding:16px 0;
+  }
+  .ticker-row{ display:flex; white-space:nowrap; width:max-content; }
+  .ticker-row span{
+    font-family:var(--mono); font-size:.88rem; color:var(--text-2);
+    padding:0 26px; display:flex; align-items:center; gap:10px;
+  }
+  .ticker-row span i{ color:var(--cyan); font-size:.7rem; }
+  .ticker-row.a{ animation:tickerLeft 34s linear infinite; }
+  .ticker-row.b{ animation:tickerRight 46s linear infinite; margin-top:10px; }
+  @keyframes tickerLeft{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @keyframes tickerRight{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,10,15,.7);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:700; font-size:1.05rem;
+    display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{ color:var(--green); }
+  .nav-links{ display:flex; gap:34px; font-size:.92rem; color:var(--text-1); }
+  .nav-links a:hover{ color:var(--text-0); }
+  .nav-cta{
+    border:1px solid var(--line); padding:9px 18px; border-radius:8px;
+    font-size:.86rem; font-family:var(--mono);
+    transition:border-color .2s, color .2s;
+  }
+  .nav-cta:hover{ border-color:var(--cyan); color:var(--cyan); }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero{
+    min-height:100vh;
+    display:flex; align-items:center;
+    position:relative;
+    padding-top:120px;
+  }
+  .hero-inner{
+    position:relative; z-index:3;
+    max-width:1180px; margin:0 auto; padding:0 32px;
+    width:100%;
+  }
+  .hero-eyebrow{
+    font-family:var(--mono); font-size:.85rem; color:var(--green);
+    margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow .cursor{
+    display:inline-block; width:8px; height:16px; background:var(--green);
+    animation:blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+  }
+
+  .hero-subtitle{
+    margin-top:26px;
+    font-family:var(--mono);
+    font-size:clamp(1rem, 1.6vw, 1.2rem);
+    color:var(--text-1);
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  }
+  .hero-subtitle .sep{ color:var(--text-2); }
+  .hero-subtitle .role-a{ color:var(--cyan); }
+  .hero-subtitle .role-b{ color:var(--green); }
+
+  .hero-tagline{
+    margin-top:22px;
+    color:var(--text-1);
+    font-size:1.1rem;
+    font-family:var(--mono);
+    max-width:560px;
+    line-height:1.7;
+  }
+  .hero-tagline .pipe{ color:var(--text-2); }
+
+  .hero-actions{ margin-top:42px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 26px; border-radius:9px;
+    font-size:.92rem; font-weight:600; font-family:var(--body);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .btn-primary{
+    background:var(--grad); color:#03080f;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(6,182,212,.5); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--text-0);
+  }
+  .btn-ghost:hover{ border-color:var(--text-1); transform:translateY(-2px); }
+
+  /* floating VS Code-style terminal */
+  .hero-visual{
+    position:absolute;
+    top:14%;
+    right:-2%;
+    width:440px;
+    z-index:2;
+    opacity:.95;
+    will-change:transform;
+  }
+  .terminal{
+    background:rgba(21,21,32,.8);
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+    backdrop-filter:blur(6px);
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:0;
+    border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+  }
+  .terminal-dots{ display:flex; gap:7px; padding:11px 14px; }
+  .terminal-dots span{ width:10px; height:10px; border-radius:50%; }
+  .terminal-dots span:nth-child(1){ background:#ff5f56; }
+  .terminal-dots span:nth-child(2){ background:#ffbd2e; }
+  .terminal-dots span:nth-child(3){ background:#27c93f; }
+  .terminal-tabs{ display:flex; }
+  .terminal-tabs span{
+    font-family:var(--mono); font-size:.68rem; color:var(--text-2);
+    padding:11px 14px; border-right:1px solid var(--line);
+  }
+  .terminal-tabs span.active{ color:var(--cyan); background:rgba(255,255,255,.03); }
+  .terminal-scroll{
+    height:210px;
+    overflow:hidden;
+    position:relative;
+    mask-image:linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  }
+  .terminal-scroll-inner{
+    animation:scrollUp 16s linear infinite;
+  }
+  @keyframes scrollUp{ from{ transform:translateY(0); } to{ transform:translateY(-50%); } }
+  .code-block{
+    padding:16px 20px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    line-height:1.65;
+  }
+  .code-block .lbl{ color:var(--text-2); margin-bottom:6px; display:block; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; }
+  .code-block .k{ color:var(--cyan); }
+  .code-block .s{ color:#e6c07b; }
+  .code-block .c{ color:var(--text-2); }
+  .code-block .g{ color:var(--green); }
+  .code-block .t{ color:var(--text-1); }
+
+  /* floating tech icons — mouse parallax layers */
+  .float-icon{
+    position:absolute;
+    width:54px; height:54px;
+    border-radius:12px;
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem;
+    z-index:2;
+    box-shadow:0 14px 30px -12px rgba(0,0,0,.55);
+    will-change:transform;
+  }
+  .float-icon.mod i{ background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .float-icon.leg i{ color:var(--green); }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    z-index:3; display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:.72rem; color:var(--text-2);
+    letter-spacing:.1em; text-transform:uppercase;
+  }
+  .scroll-cue .line{ width:1px; height:34px; background:linear-gradient(var(--text-2), transparent); animation:scrollpulse 1.8s ease-in-out infinite; }
+  @keyframes scrollpulse{ 0%,100%{ opacity:.2; } 50%{ opacity:1; } }
+
+  /* ============================================================
+     REVEAL
+     ============================================================ */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============================================================
+     DUAL ROLE PITCH
+     ============================================================ */
+  .role-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+    margin-bottom:70px;
+  }
+  .role-card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:38px 34px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .role-card::before{
+    content:'';
+    position:absolute; inset:0;
+    opacity:0;
+    transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .role-card.it::before{ background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%), rgba(37,99,235,.14), transparent 60%); }
+  .role-card.dev::before{ background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%), rgba(16,185,129,.14), transparent 60%); }
+  .role-card:hover::before{ opacity:1; }
+  .role-card:hover{ transform:translateY(-6px); border-color:#2c2c3c; }
+  .role-icon{
+    width:52px; height:52px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; margin-bottom:22px;
+  }
+  .role-card.it .role-icon{ background:rgba(37,99,235,.14); color:var(--cyan); }
+  .role-card.dev .role-icon{ background:rgba(16,185,129,.14); color:var(--green); }
+  .role-card h3{ font-size:1.3rem; margin-bottom:6px; }
+  .role-card .role-tag{ font-family:var(--mono); font-size:.78rem; color:var(--text-2); margin-bottom:20px; display:block; }
+  .role-card ul li{
+    display:flex; align-items:center; gap:10px;
+    padding:9px 0; border-top:1px solid var(--line-soft);
+    color:var(--text-1); font-size:.94rem;
+  }
+  .role-card ul li:first-child{ border-top:none; }
+  .role-card.it ul li i{ color:var(--cyan); font-size:.75rem; }
+  .role-card.dev ul li i{ color:var(--green); font-size:.75rem; }
+
+  .stat-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+  }
+  .stat-card{
+    background:var(--bg-2);
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius);
+    padding:28px;
+    text-align:center;
+  }
+  .stat-num{
+    font-family:var(--head); font-size:2.4rem; font-weight:700;
+  }
+  .stat-label{ color:var(--text-2); font-size:.86rem; margin-top:6px; font-family:var(--mono); }
+
+  /* ============================================================
+     SKILLS
+     ============================================================ */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:28px;
+  }
+  .skill-group{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .skill-group.legacy{ grid-column:1 / -1; border-color:rgba(16,185,129,.25); }
+  .skill-group h4{
+    font-family:var(--mono); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-2); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .skill-group h4 i{ color:var(--cyan); }
+  .skill-group.legacy h4 i{ color:var(--green); }
+  .pill-wrap{ display:flex; flex-wrap:wrap; gap:12px; }
+  .pill{
+    font-family:var(--mono); font-size:.84rem;
+    padding:9px 16px; border-radius:100px;
+    border:1px solid var(--line);
+    background:var(--bg-1);
+    color:var(--text-1);
+    opacity:0;
+    transform:translateY(10px) scale(.96);
+    transition:opacity .4s ease, transform .4s ease, border-color .25s, color .25s, box-shadow .25s;
+  }
+  .pill.is-visible{ opacity:1; transform:translateY(0) scale(1); }
+  .pill:hover{ border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 18px -4px rgba(6,182,212,.5); }
+  .skill-group.legacy .pill:hover{ border-color:var(--green); color:var(--green); box-shadow:0 0 18px -4px rgba(16,185,129,.5); }
+
+  /* ============================================================
+     EXPERIENCE
+     ============================================================ */
+  .exp-card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:38px;
+  }
+  .exp-head{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:22px; }
+  .exp-role{ font-size:1.3rem; font-family:var(--head); }
+  .exp-org{ color:var(--cyan); font-family:var(--mono); font-size:.88rem; margin-top:4px; }
+  .exp-time{ font-family:var(--mono); font-size:.82rem; color:var(--text-2); border:1px solid var(--line); padding:6px 14px; border-radius:100px; height:fit-content; }
+  .exp-line{
+    display:flex; gap:14px; padding:14px 0; border-top:1px solid var(--line-soft);
+    color:var(--text-1); font-size:.98rem;
+  }
+  .exp-line:first-of-type{ border-top:none; }
+  .exp-line .badge{
+    font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.06em;
+    padding:3px 9px; border-radius:5px; height:fit-content; white-space:nowrap; margin-top:2px;
+  }
+  .exp-line .badge.itb{ background:rgba(37,99,235,.14); color:var(--cyan); }
+  .exp-line .badge.devb{ background:rgba(16,185,129,.14); color:var(--green); }
+
+  /* ============================================================
+     PROJECTS
+     ============================================================ */
+  .project-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:26px;
+  }
+  .project-card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform .15s ease, border-color .3s ease;
+    will-change:transform;
+  }
+  .project-card:hover{ border-color:#2c2c3c; }
+  .project-index{ font-family:var(--mono); font-size:.78rem; color:var(--text-2); margin-bottom:16px; }
+  .project-card h3{ font-size:1.28rem; margin-bottom:6px; }
+  .project-stack{
+    font-family:var(--mono); font-size:.72rem; color:var(--green);
+    display:inline-block; margin-bottom:16px;
+    border:1px solid rgba(16,185,129,.3); background:rgba(16,185,129,.08);
+    padding:5px 11px; border-radius:100px;
+  }
+  .project-stack.modern{ color:var(--cyan); border-color:rgba(6,182,212,.3); background:rgba(6,182,212,.08); }
+  .project-card p{ color:var(--text-1); font-size:.95rem; margin-bottom:22px; }
+  .project-actions{ display:flex; gap:14px; }
+  .link-btn{
+    font-family:var(--mono); font-size:.82rem;
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--text-0); border-bottom:1px solid var(--line);
+    padding-bottom:2px; transition:border-color .2s, color .2s;
+  }
+  .link-btn:hover{ color:var(--cyan); border-color:var(--cyan); }
+
+  /* ============================================================
+     CONTACT / FOOTER
+     ============================================================ */
+  footer{
+    padding:100px 0 40px;
+    border-top:1px solid var(--line-soft);
+    text-align:center;
+    position:relative;
+  }
+  footer .foot-cta h2{ font-size:clamp(2rem,5vw,3.2rem); margin-bottom:20px; }
+  footer .foot-sub{ color:var(--text-1); max-width:480px; margin:0 auto 40px; }
+  .foot-links{
+    display:flex; justify-content:center; gap:20px; margin-bottom:70px; flex-wrap:wrap;
+  }
+  .foot-link{
+    width:52px; height:52px; border-radius:12px;
+    border:1px solid var(--line); background:var(--bg-card);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.15rem; color:var(--text-1);
+    transition:all .25s ease;
+  }
+  .foot-link:hover{ color:var(--cyan); border-color:var(--cyan); transform:translateY(-4px); }
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    font-family:var(--mono); font-size:.78rem; color:var(--text-2);
+    padding-top:30px; border-top:1px solid var(--line-soft);
+    position:relative; z-index:2;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:900px){
+    .role-grid, .project-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .skill-group.legacy{ grid-column:auto; }
+    .stat-grid{ grid-template-columns:1fr; }
+    .hero-visual{ display:none; }
+    .nav-links{ display:none; }
+    section{ padding:80px 0; }
+  }
+  @media (max-width:520px){
+    .container{ padding:0 20px; }
+    .hero-inner{ padding:0 20px; }
+    .exp-head{ flex-direction:column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
 </head>
-
 <body>
 
-    <!--header area start-->
-    <!--Offcanvas menu area start-->
-    <div class="off_canvars_overlay">
-            
+<div class="grid-backdrop"></div>
+<div class="glare" id="glare"></div>
+
+<!-- global parallax field: background blobs spanning the whole document -->
+<div class="parallax-field" id="parallaxField">
+  <div class="p-blob blue"   data-speed="0.4"  style="width:520px; height:520px; top:0vh;   left:-6%;"></div>
+  <div class="p-blob cyan"   data-speed="0.55" style="width:420px; height:420px; top:22vh;  right:-8%;"></div>
+  <div class="p-blob green"  data-speed="0.3"  style="width:460px; height:460px; top:60vh;  left:8%;"></div>
+  <div class="p-blob blue"   data-speed="0.6"  style="width:380px; height:380px; top:95vh;  right:2%;"></div>
+  <div class="p-blob cyan"   data-speed="0.35" style="width:500px; height:500px; top:140vh; left:-4%;"></div>
+  <div class="p-blob green"  data-speed="0.5"  style="width:420px; height:420px; top:185vh; right:-6%;"></div>
+  <div class="p-blob blue"   data-speed="0.45" style="width:460px; height:460px; top:230vh; left:6%;"></div>
+  <div class="p-blob green"  data-speed="0.65" style="width:400px; height:400px; top:270vh; right:4%;"></div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">miko<span class="dot">.</span>bitar</div>
+    <nav class="nav-links">
+      <a href="#pitch">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Let's connect</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="cursor"></span> AVAILABLE FOR OPPORTUNITIES</div>
+    <h1>Miko Bitar</h1>
+    <div class="hero-subtitle">
+      <span class="role-a">IT Application Specialist</span>
+      <span class="sep">|</span>
+      <span class="role-b">Fullstack Web Developer</span>
     </div>
-    <div class="Offcanvas_menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="canvas_open">
-                        <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
-                    </div>
-                    <div class="Offcanvas_menu_wrapper">
-                        <div class="canvas_close">
-                              <a href="javascript:void(0)"><i class="ion-android-close"></i></a>  
-                        </div>
-                        <div class="support_info">
-                            <p>Any Enquiry: <a href="tel:">+56985475235</a></p>
-                        </div>
-                        <div class="top_right text-right">
-                            <ul>
-                               <li><a href="my-account.html"> My Account </a></li> 
-                               <li><a href="checkout.html"> Checkout </a></li> 
-                            </ul>
-                        </div> 
-                        <div class="search_container">
-                           <form action="#">
-                                <div class="search_box">
-                                    <input placeholder="Search product..." type="text">
-                                    <button type="submit">Search</button> 
-                                </div>
-                            </form>
-                        </div> 
-                        
-                        <div class="middel_right_info">
-                            <div class="header_wishlist">
-                                <a href="wishlist.html"><img src="assets/img/user.png" alt=""></a>
-                            </div>
-                            <div class="mini_cart_wrapper">
-                                <a href="javascript:void(0)"><img src="assets/img/shopping-bag.png" alt=""></a>
-                                <span class="cart_quantity">2</span>
-                                <!--mini cart-->
-                                 <div class="mini_cart">
-                                    <div class="cart_item">
-                                       <div class="cart_img">
-                                           <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-                                       </div>
-                                        <div class="cart_info">
-                                            <a href="#">Sit voluptatem rhoncus sem lectus</a>
-                                            <p>Qty: 1 X <span> $60.00 </span></p>    
-                                        </div>
-                                        <div class="cart_remove">
-                                            <a href="#"><i class="ion-android-close"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="cart_item">
-                                       <div class="cart_img">
-                                           <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                                       </div>
-                                        <div class="cart_info">
-                                            <a href="#">Natus erro at congue massa commodo</a>
-                                            <p>Qty: 1 X <span> $60.00 </span></p>   
-                                        </div>
-                                        <div class="cart_remove">
-                                            <a href="#"><i class="ion-android-close"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="mini_cart_table">
-                                        <div class="cart_total">
-                                            <span>Sub total:</span>
-                                            <span class="price">$138.00</span>
-                                        </div>
-                                        <div class="cart_total mt-10">
-                                            <span>total:</span>
-                                            <span class="price">$138.00</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="mini_cart_footer">
-                                       <div class="cart_button">
-                                            <a href="cart.html">View cart</a>
-                                        </div>
-                                        <div class="cart_button">
-                                            <a href="checkout.html">Checkout</a>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <!--mini cart end-->
-                            </div>
-                        </div>
-                        <div id="menu" class="text-left ">
-                            <ul class="offcanvas_main_menu">
-                                <li class="menu-item-has-children active">
-                                    <a href="#">Home</a>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="product-details.html">product</a>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">pages </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="about.html">About Us</a></li>
-										<li><a href="contact.html">contact</a></li>
-										<li><a href="privacy-policy.html">privacy policy</a></li>
-										<li><a href="faq.html">Frequently Questions</a></li>
-										<li><a href="login.html">login</a></li>
-										<li><a href="register.html">register</a></li>
-										<li><a href="forget-password.html">Forget Password</a></li>
-										<li><a href="404.html">Error 404</a></li>
-										<li><a href="cart.html">cart</a></li>
-										<li><a href="tracking.html">tracking</a></li>
-										<li><a href="checkout.html">checkout</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">blog</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog.html">blog</a></li>
-                                        <li><a href="blog-details.html">blog details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="login.html">my account</a>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="contact.html"> Contact Us</a> 
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="Offcanvas_footer">
-                            <span><a href="#"><i class="fa fa-envelope-o"></i> info@drophunt.com</a></span>
-                            <ul>
-                                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li class="pinterest"><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <p class="hero-tagline">Legacy Systems. <span class="pipe">/</span> Modern Web. <span class="pipe">/</span> Real-Time Data. <span class="pipe">/</span> One Developer.</p>
+    <div class="hero-actions">
+      <!-- SWAP: point this at your actual CV file -->
+      <a href="#" class="btn btn-primary" download><i class="fa-solid fa-download"></i> Download CV</a>
+      <a href="#projects" class="btn btn-ghost"><i class="fa-solid fa-arrow-right"></i> View My Work</a>
     </div>
-    <!--Offcanvas menu area end-->
-    
-    <header>
-        <div class="main_header">
-            <!--header top start-->
-            <div class="header_top">
-                <div class="container">  
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="support_info">
-                                <p>Email: <a href="mailto:">support@drophunt.com</a></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="top_right text-right">
-                                <ul>
-                                   <li><a href="my-account.html">Account</a></li> 
-                                   <li><a href="checkout.html">Checkout</a></li> 
-                                </ul>
-                            </div>   
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--header top start-->
-            <!--header middel start-->
-            <div class="header_middle">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="logo">
-                                <a href="index-2.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-md-6">
-                            <div class="middel_right">
-                                <div class="search_container">
-                                   <form action="#">
-                                        <div class="search_box">
-                                            <input placeholder="Search product..." type="text">
-                                            <button type="submit">Search</button> 
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="middel_right_info">
-                                    <div class="header_wishlist">
-                                        <a href="#"><img src="assets/img/user.png" alt=""></a>
-                                    </div>
-                                    <div class="mini_cart_wrapper">
-                                        <a href="javascript:void(0)"><img src="assets/img/shopping-bag.png" alt=""></a>
-                                        <span class="cart_quantity">2</span>
-                                        <!--mini cart-->
-                                         <div class="mini_cart">
-                                            <div class="cart_item">
-                                               <div class="cart_img">
-                                                   <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
-                                               </div>
-                                                <div class="cart_info">
-                                                    <a href="#">Sit voluptatem rhoncus sem lectus</a>
-                                                    <p>Qty: 1 X <span> $60.00 </span></p>    
-                                                </div>
-                                                <div class="cart_remove">
-                                                    <a href="#"><i class="ion-android-close"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="cart_item">
-                                               <div class="cart_img">
-                                                   <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                                               </div>
-                                                <div class="cart_info">
-                                                    <a href="#">Natus erro at congue massa commodo</a>
-                                                    <p>Qty: 1 X <span> $60.00 </span></p>   
-                                                </div>
-                                                <div class="cart_remove">
-                                                    <a href="#"><i class="ion-android-close"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="mini_cart_table">
-                                                <div class="cart_total">
-                                                    <span>Sub total:</span>
-                                                    <span class="price">$138.00</span>
-                                                </div>
-                                                <div class="cart_total mt-10">
-                                                    <span>total:</span>
-                                                    <span class="price">$138.00</span>
-                                                </div>
-                                            </div>
+  </div>
 
-                                            <div class="mini_cart_footer">
-                                               <div class="cart_button">
-                                                    <a href="cart.html">View cart</a>
-                                                </div>
-                                                <div class="cart_button">
-                                                    <a href="checkout.html">Checkout</a>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <!--mini cart end-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--header middel end-->
-            <!--header bottom satrt-->
-            <div class="main_menu_area">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12 col-md-12">
-                            <div class="main_menu menu_position"> 
-                                <nav>  
-                                    <ul>
-                                        <li><a href="index-2.html">home</a></li>
-                                        <li><a href="product-details.html">Product</a></li>
-                                        
-                                        <li><a class="active" href="#">pages <i class="fa fa-angle-down"></i></a>
-                                            <ul class="sub_menu pages">
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li><a href="contact.html">contact</a></li>
-                                                <li><a href="privacy-policy.html">privacy policy</a></li>
-                                                <li><a href="faq.html">Frequently Questions</a></li>
-                                                <li><a href="login.html">login</a></li>
-                                                <li><a href="register.html">register</a></li>
-                                                <li><a href="forget-password.html">Forget Password</a></li>
-                                                <li><a href="404.html">Error 404</a></li>
-                                                <li><a href="cart.html">cart</a></li>
-                                                <li><a href="tracking.html">tracking</a></li>
-                                                <li><a href="checkout.html">checkout</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="blog.html">blog<i class="fa fa-angle-down"></i></a>
-                                            <ul class="sub_menu pages">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="blog-details.html">blog details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html"> Contact Us</a></li>
-                                    </ul>  
-                                </nav> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--header bottom end-->
-        </div> 
-    </header>
-    <!--header area end-->
-
-
-    <!--slider area start-->
-    <section class="slider_section d-flex align-items-center" data-bgimg="assets/img/slider/slider3.jpg">
-        <div class="slider_area owl-carousel">
-            <div class="single_slider d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <div class="slider_content">
-                                <h1>Next level of Drone</h1>
-                                <h2>Insane Quality for use</h2>
-                                <p>Special offer <span> 20% off </span> this week</p>
-                                <a class="button" href="product-details.html">Buy now</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-md-6">
-                            <div class="slider_content">
-                                <img src="assets/img/product/1.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="single_slider d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <div class="slider_content">
-                                <h1>Best Camera Included</h1>
-                                <h2>100% Flexible</h2>
-                                <p>exclusive offer <span> 20% off </span> this week</p>
-                                <a class="button" href="product-details.html">Shop now</a>
-                            </div>
-                        </div>                        
-                        <div class="col-xl-6 col-md-6">
-                            <div class="slider_content">
-                                <img src="assets/img/product/2.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single_slider d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <div class="slider_content">
-                                <h1>With some gifts</h1>
-                                <h2>Special one for you</h2>
-                                <p>exclusive offer <span> 20% off </span> this week</p>
-                                <a class="button" href="product-details.html">shopping now</a>
-                            </div>
-                        </div>                      
-                        <div class="col-xl-6 col-md-6">
-                            <div class="slider_content">
-                                <img src="assets/img/product/3.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- floating VS Code-style terminal (parallax layer, mouse depth 0.03) -->
+  <div class="hero-visual" data-depth="0.03">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <div class="terminal-tabs">
+          <span class="active">app.jsx</span>
+          <span>api.php</span>
+          <span>stream.py</span>
         </div>
-    </section>
-    <!--slider area end-->
-
-    <!--Tranding product-->
-    <section class="pt-60 pb-30 gray-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="section-title">
-                        <h2>Tranding Products</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-tranding">
-                        <a href="product-details.html">
-                            <div class="tranding-pro-img">
-                                <img src="assets/img/product/tranding-1.jpg" alt="">
-                            </div>
-                            <div class="tranding-pro-title">
-                                <h3>Meyoji Robast Drone</h3>
-                                <h4>Drone</h4>
-                            </div>
-                            <div class="tranding-pro-price">
-                                <div class="price_box">
-                                    <span class="current_price">$70.00</span>
-                                    <span class="old_price">$80.00</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-tranding">
-                        <a href="product-details.html">
-                            <div class="tranding-pro-img">
-                                <img src="assets/img/product/tranding-2.jpg" alt="">
-                            </div>
-                            <div class="tranding-pro-title">
-                                <h3>Ut praesentium earum</h3>
-                                <h4>Mevrik</h4>
-                            </div>
-                            <div class="tranding-pro-price">
-                                <div class="price_box">
-                                    <span class="current_price">$70.00</span>
-                                    <span class="old_price">$80.00</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-tranding">
-                        <a href="product-details.html">
-                            <div class="tranding-pro-img">
-                                <img src="assets/img/product/tranding-3.jpg" alt="">
-                            </div>
-                            <div class="tranding-pro-title">
-                                <h3>Consectetur adipisicing</h3>
-                                <h4>Flyer</h4>
-                            </div>
-                            <div class="tranding-pro-price">
-                                <div class="price_box">
-                                    <span class="current_price">$70.00</span>
-                                    <span class="old_price">$80.00</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="terminal-scroll">
+        <div class="terminal-scroll-inner">
+          <div class="code-block">
+            <span class="lbl">React</span>
+            <div><span class="k">const</span> <span class="t">EmpHub</span> = () => {</div>
+            <div>&nbsp;&nbsp;<span class="k">const</span> [data] = <span class="t">useState</span>([]);</div>
+            <div>&nbsp;&nbsp;<span class="c">// centralized HR analytics</span></div>
+            <div>&nbsp;&nbsp;<span class="k">return</span> &lt;<span class="g">Dashboard</span> {'{'}...data{'}'} /&gt;;</div>
+            <div>{'}'};</div>
+          </div>
+          <div class="code-block">
+            <span class="lbl">PHP</span>
+            <div>&lt;?<span class="k">php</span></div>
+            <div><span class="k">function</span> <span class="t">getResident</span>($id) {</div>
+            <div>&nbsp;&nbsp;<span class="c">// barangay profiling lookup</span></div>
+            <div>&nbsp;&nbsp;<span class="k">return</span> $db-&gt;<span class="t">query</span>(<span class="s">"SELECT * FROM residents"</span>);</div>
+            <div>}</div>
+          </div>
+          <div class="code-block">
+            <span class="lbl">Python / Kafka</span>
+            <div><span class="k">from</span> kafka <span class="k">import</span> KafkaProducer</div>
+            <div>producer = <span class="t">KafkaProducer</span>(bootstrap_servers=<span class="s">'...'</span>)</div>
+            <div><span class="c"># real-time biometric event stream</span></div>
+            <div>producer.<span class="t">send</span>(<span class="s">'attendance'</span>, event)</div>
+          </div>
+          <div class="code-block">
+            <span class="lbl">C#</span>
+            <div><span class="k">public class</span> <span class="g">FleetMonitor</span> {</div>
+            <div>&nbsp;&nbsp;<span class="k">public void</span> <span class="t">TrackShipment</span>(<span class="t">int</span> id)</div>
+            <div>&nbsp;&nbsp;{</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">// real-time fleet transaction log</span></div>
+            <div>&nbsp;&nbsp;}</div>
+            <div>}</div>
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="code-block">
+            <span class="lbl">React</span>
+            <div><span class="k">const</span> <span class="t">EmpHub</span> = () => {</div>
+            <div>&nbsp;&nbsp;<span class="k">const</span> [data] = <span class="t">useState</span>([]);</div>
+            <div>&nbsp;&nbsp;<span class="c">// centralized HR analytics</span></div>
+            <div>&nbsp;&nbsp;<span class="k">return</span> &lt;<span class="g">Dashboard</span> {'{'}...data{'}'} /&gt;;</div>
+            <div>{'}'};</div>
+          </div>
+          <div class="code-block">
+            <span class="lbl">PHP</span>
+            <div>&lt;?<span class="k">php</span></div>
+            <div><span class="k">function</span> <span class="t">getResident</span>($id) {</div>
+            <div>&nbsp;&nbsp;<span class="c">// barangay profiling lookup</span></div>
+            <div>&nbsp;&nbsp;<span class="k">return</span> $db-&gt;<span class="t">query</span>(<span class="s">"SELECT * FROM residents"</span>);</div>
+            <div>}</div>
+          </div>
+          <div class="code-block">
+            <span class="lbl">Python / Kafka</span>
+            <div><span class="k">from</span> kafka <span class="k">import</span> KafkaProducer</div>
+            <div>producer = <span class="t">KafkaProducer</span>(bootstrap_servers=<span class="s">'...'</span>)</div>
+            <div><span class="c"># real-time biometric event stream</span></div>
+            <div>producer.<span class="t">send</span>(<span class="s">'attendance'</span>, event)</div>
+          </div>
+          <div class="code-block">
+            <span class="lbl">C#</span>
+            <div><span class="k">public class</span> <span class="g">FleetMonitor</span> {</div>
+            <div>&nbsp;&nbsp;<span class="k">public void</span> <span class="t">TrackShipment</span>(<span class="t">int</span> id)</div>
+            <div>&nbsp;&nbsp;{</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c">// real-time fleet transaction log</span></div>
+            <div>&nbsp;&nbsp;}</div>
+            <div>}</div>
+          </div>
         </div>
-    </section><!--Tranding product-->
-
-    <!--Features area-->
-    <section class="features-area pt-60 pb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="section-title">
-                        <h2>Awesome Features</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-features">
-                        <img src="assets/img/icon/1.png" alt="">
-                        <h3>Impressive Distance</h3>
-                        <p>consectetur adipisicing elit. Ut praesentium earum, blanditiis, voluptatem repellendus rerum voluptatibus dignissimos</p>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-features">
-                        <img src="assets/img/icon/2.png" alt="">
-                        <h3>100% self safe</h3>
-                        <p>consectetur adipisicing elit. Ut praesentium earum, blanditiis, voluptatem repellendus rerum voluptatibus dignissimos</p>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-features">
-                        <img src="assets/img/icon/3.png" alt="">
-                        <h3>Awesome Support</h3>
-                        <p>consectetur adipisicing elit. Ut praesentium earum, blanditiis, voluptatem repellendus rerum voluptatibus dignissimos</p>
-                    </div>
-                </div>
-                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
-                    <a href="#"><img src="assets/img/product/2.png" alt=""></a>
-                </div>
-            </div>
-        </div>
-    </section><!--Features area-->
-
-    <!--Features area-->
-    <section class="gray-bg pt-60 pb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 order-lg-1 order-md-1 order-sm-1">
-                    <div class="pro-details-feature">
-                        <img src="assets/img/product/1.png" alt="">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 order-lg-2 order-md-2 order-sm-2">
-                    <div class="pro-details-feature">
-                        <h3>Long Lasting</h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                        <ul>
-                            <li>It is a long established fact that</li>
-                            <li>Many desktop publishing</li>
-                            <li>Various versions have evolved over the years, sometimes by accident</li>
-                            <li>There are many variations of passages</li>
-                            <li>If you are going to use a</li>
-                            <li>Alteration in some form, by injected</li>
-                        </ul>
-                        <a href="#">$70 Buy now</a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 order-lg-3 order-md-4 order-sm-4 order-4">
-                    <div class="pro-details-feature">
-                        <h3>Impressive Distance</h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                        <ul>
-                            <li>It is a long established fact that</li>
-                            <li>Many desktop publishing</li>
-                            <li>Various versions have evolved over the years, sometimes by accident</li>
-                            <li>There are many variations of passages</li>
-                            <li>If you are going to use a</li>
-                            <li>Alteration in some form, by injected</li>
-                        </ul>
-                        <a href="#">$70 Buy now</a>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 order-lg-4 order-md-3 order-sm-3 order-3">
-                    <div class="pro-details-feature">
-                        <img src="assets/img/product/1.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!--Features area-->
-
-    
-    <!--product details start-->
-    <div class="product_details mt-60 mb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="product-details-tab">
-                        <div id="img-1" class="zoomWrapper single-zoom">
-                            <a href="#">
-                                <img id="zoom1" src="assets/img/product/details-1.jpg" data-zoom-image="assets/img/product/details-1.jpg" alt="big-1">
-                            </a>
-                        </div>
-                        <div class="single-zoom-thumb">
-                            <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                                <li>
-                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-2.jpg" data-zoom-image="assets/img/product/details-2.jpg">
-                                        <img src="assets/img/product/details-2.jpg" alt="zo-th-1"/>
-                                    </a>
-
-                                </li>
-                                <li >
-                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-3.jpg" data-zoom-image="assets/img/product/details-3.jpg">
-                                        <img src="assets/img/product/details-3.jpg" alt="zo-th-1"/>
-                                    </a>
-
-                                </li>
-                                <li >
-                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-4.jpg" data-zoom-image="assets/img/product/details-4.jpg">
-                                        <img src="assets/img/product/details-4.jpg" alt="zo-th-1"/>
-                                    </a>
-
-                                </li>
-                                <li >
-                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/details-1.jpg" data-zoom-image="assets/img/product/details-1.jpg">
-                                        <img src="assets/img/product/details-1.jpg" alt="zo-th-1"/>
-                                    </a>
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="product_d_right">
-                        <form action="#">
-                            
-                            <h1>Meyoji Robast Drone Fusce ultricies massa</h1>
-                            <div class=" product_ratting">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li class="review"><a href="#"> (250 reviews) </a></li>
-                                </ul>
-                                
-                            </div>
-                            <div class="price_box">
-                                <span class="current_price">$70.00</span>
-                                <span class="old_price">$80.00</span>                                
-                            </div>
-                            <div class="product_desc">
-                                <ul>
-                                    <li>In Stock</li>
-                                    <li>Free delivery available*</li>
-                                    <li>Sale 30% Off Use Code : 'Drophut'</li>
-                                </ul>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will</p>
-                            </div>
-                            <div class="product_timing">
-                                <div data-countdown="2021/6/28"></div>
-                            </div>
-                            <div class="product_variant color">
-                                <h3>Available Options</h3>
-                                <label>color</label>
-                                <ul>
-                                    <li class="color1"><a href="#"></a></li>
-                                    <li class="color2"><a href="#"></a></li>
-                                    <li class="color3"><a href="#"></a></li>
-                                    <li class="color4"><a href="#"></a></li>
-                                </ul>
-                            </div>
-                            <div class="product_variant quantity">
-                                <label>quantity</label>
-                                <input min="1" max="100" value="1" type="number">
-                                <button class="button" type="submit">Buy now</button>  
-                                
-                            </div>
-                            <div class="product_meta">
-                                <span>Category: <a href="#">Drone</a></span>
-                            </div>
-                            
-                        </form>
-                        <div class="priduct_social">
-                            <ul>
-                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> Like</a></li>           
-                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>           
-                                <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> save</a></li>           
-                                <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> share</a></li>        
-                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> linked</a></li>        
-                            </ul>      
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>    
+      </div>
     </div>
-    <!--product details end-->
+  </div>
 
-    
-    <!--area-->
-    <section class="pt-60 pb-60 gray-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="section-title">
-                        <h2>Watch it now</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                    <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/136938394?color=FA5252&amp;title=0&amp;byline=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" allow="autoplay; fullscreen" allowfullscreen></iframe></div><script src="../../../player.vimeo.com/api/player.js"></script>
-                </div>
-            </div>
+  <!-- floating tech icons — mouse parallax layers -->
+  <div class="float-icon mod" data-depth="0.05" style="top:16%; left:8%;"><i class="fa-brands fa-react"></i></div>
+  <div class="float-icon mod" data-depth="0.08" style="top:62%; left:14%;"><i class="fa-brands fa-node-js"></i></div>
+  <div class="float-icon leg" data-depth="0.04" style="top:74%; left:42%;"><i class="fa-brands fa-php"></i></div>
+  <div class="float-icon mod" data-depth="0.07" style="top:10%; left:46%;"><i class="fa-brands fa-python"></i></div>
+  <div class="float-icon leg" data-depth="0.06" style="top:48%; left:4%;"><i class="fa-solid fa-diagram-project"></i></div>
+  <div class="float-icon leg" data-depth="0.09" style="top:86%; left:24%;"><i class="fa-solid fa-hashtag"></i></div>
+  <div class="float-icon mod" data-depth="0.055" style="top:32%; left:2%;"><i class="fa-solid fa-database"></i></div>
+
+  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+</section>
+
+<!-- scrolling code ticker: literal horizontal parallax motion -->
+<div class="code-ticker">
+  <div class="ticker-row a">
+    <span><i class="fa-solid fa-circle"></i> const stream = kafka.consumer()</span>
+    <span><i class="fa-solid fa-circle"></i> SELECT * FROM Attendance_vw</span>
+    <span><i class="fa-solid fa-circle"></i> public class BiometricAuth</span>
+    <span><i class="fa-solid fa-circle"></i> POST /api/v1/device/scan</span>
+    <span><i class="fa-solid fa-circle"></i> $result = mysqli_query($conn, $sql)</span>
+    <span><i class="fa-solid fa-circle"></i> const stream = kafka.consumer()</span>
+    <span><i class="fa-solid fa-circle"></i> SELECT * FROM Attendance_vw</span>
+    <span><i class="fa-solid fa-circle"></i> public class BiometricAuth</span>
+    <span><i class="fa-solid fa-circle"></i> POST /api/v1/device/scan</span>
+    <span><i class="fa-solid fa-circle"></i> $result = mysqli_query($conn, $sql)</span>
+  </div>
+  <div class="ticker-row b">
+    <span><i class="fa-solid fa-circle"></i> import KafkaProducer from kafka</span>
+    <span><i class="fa-solid fa-circle"></i> Postman → Biometric Device API</span>
+    <span><i class="fa-solid fa-circle"></i> git push origin bitbucket/main</span>
+    <span><i class="fa-solid fa-circle"></i> useEffect(() =&gt; fetchOrgData())</span>
+    <span><i class="fa-solid fa-circle"></i> Dim conn As New SqlConnection()</span>
+    <span><i class="fa-solid fa-circle"></i> import KafkaProducer from kafka</span>
+    <span><i class="fa-solid fa-circle"></i> Postman → Biometric Device API</span>
+    <span><i class="fa-solid fa-circle"></i> git push origin bitbucket/main</span>
+    <span><i class="fa-solid fa-circle"></i> useEffect(() =&gt; fetchOrgData())</span>
+    <span><i class="fa-solid fa-circle"></i> Dim conn As New SqlConnection()</span>
+  </div>
+</div>
+
+<!-- ============ DUAL ROLE PITCH ============ -->
+<section id="pitch">
+  <div class="container">
+    <div class="eyebrow reveal">Who I Am</div>
+    <h2 class="section-title reveal">Two disciplines. <span class="grad-text">One engineer.</span></h2>
+    <p class="section-sub reveal">I navigate the entire software ecosystem — from legacy desktop systems to real-time event streaming — and everything in between.</p>
+
+    <div class="role-grid">
+      <div class="role-card it reveal">
+        <div class="role-icon"><i class="fa-solid fa-server"></i></div>
+        <h3>IT Specialist</h3>
+        <span class="role-tag">// current employment title</span>
+        <ul>
+          <li><i class="fa-solid fa-circle"></i> Systems Integration</li>
+          <li><i class="fa-solid fa-circle"></i> Biometrics</li>
+          <li><i class="fa-solid fa-circle"></i> Kafka Streaming</li>
+        </ul>
+      </div>
+      <div class="role-card dev reveal">
+        <div class="role-icon"><i class="fa-solid fa-code"></i></div>
+        <h3>Fullstack Dev</h3>
+        <span class="role-tag">// by code, by choice</span>
+        <ul>
+          <li><i class="fa-solid fa-circle"></i> React / Node</li>
+          <li><i class="fa-solid fa-circle"></i> PHP / MySQL</li>
+          <li><i class="fa-solid fa-circle"></i> REST APIs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card reveal">
+        <div class="stat-num" data-count="6">0</div>
+        <div class="stat-label">YEARS IN TECH</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-num" data-count="12">0</div>
+        <div class="stat-label">SYSTEMS INTEGRATED</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-num" data-count="99" data-suffix=".9%">0</div>
+        <div class="stat-label">UPTIME</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="container">
+    <div class="eyebrow reveal">Technical Skills</div>
+    <h2 class="section-title reveal">The full <span class="grad-text">range</span>.</h2>
+    <p class="section-sub reveal">Badges light up as they scroll into view.</p>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h4><i class="fa-solid fa-display"></i> Frontend &amp; UI</h4>
+        <div class="pill-wrap">
+          <span class="pill">JavaScript (ES6)</span>
+          <span class="pill">HTML5</span>
+          <span class="pill">CSS3</span>
+          <span class="pill">React.js</span>
         </div>
-    </section><!--area-->
-
-    
-    <!--Other product-->
-    <section class="pt-60 pb-30">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="section-title">
-                        <h2>Other collections</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-tranding mb-30">
-                        <a href="product-details.html">
-                            <div class="tranding-pro-img">
-                                <img src="assets/img/product/tranding-1.jpg" alt="">
-                            </div>
-                            <div class="tranding-pro-title">
-                                <h3>Meyoji Robast Drone</h3>
-                                <h4>Drone</h4>
-                            </div>
-                            <div class="tranding-pro-price">
-                                <div class="price_box">
-                                    <span class="current_price">$70.00</span>
-                                    <span class="old_price">$80.00</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-tranding mb-30">
-                        <a href="product-details.html">
-                            <div class="tranding-pro-img">
-                                <img src="assets/img/product/tranding-2.jpg" alt="">
-                            </div>
-                            <div class="tranding-pro-title">
-                                <h3>Ut praesentium earum</h3>
-                                <h4>Mevrik</h4>
-                            </div>
-                            <div class="tranding-pro-price">
-                                <div class="price_box">
-                                    <span class="current_price">$70.00</span>
-                                    <span class="old_price">$80.00</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="single-tranding mb-30">
-                        <a href="product-details.html">
-                            <div class="tranding-pro-img">
-                                <img src="assets/img/product/tranding-3.jpg" alt="">
-                            </div>
-                            <div class="tranding-pro-title">
-                                <h3>Consectetur adipisicing</h3>
-                                <h4>Flyer</h4>
-                            </div>
-                            <div class="tranding-pro-price">
-                                <div class="price_box">
-                                    <span class="current_price">$70.00</span>
-                                    <span class="old_price">$80.00</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="skill-group reveal">
+        <h4><i class="fa-solid fa-server"></i> Backend &amp; APIs</h4>
+        <div class="pill-wrap">
+          <span class="pill">Node.js</span>
+          <span class="pill">Python</span>
+          <span class="pill">PHP</span>
+          <span class="pill">C#</span>
+          <span class="pill">REST APIs</span>
+          <span class="pill">Kafka (Event Streaming)</span>
         </div>
-    </section><!--Other product-->
-
-    <!--Testimonials-->
-    <section class="pb-60 pt-60 gray-bg">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-10">
-                    <div class="testimonial_are">
-                        <div class="testimonial_active owl-carousel">       
-                            <article class="single_testimonial">
-                                <figure>
-                                    <div class="testimonial_thumb">
-                                        <a href="#"><img src="assets/img/about/team-3.jpg" alt=""></a>
-                                    </div>
-                                    <figcaption class="testimonial_content">
-                                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45</p>
-                                        <h3><a href="#">Kathy Young</a><span> - CEO of SunPark</span></h3>
-                                    </figcaption>
-                                    
-                                </figure>
-                            </article> 
-                            <article class="single_testimonial">
-                                <figure>
-                                    <div class="testimonial_thumb">
-                                        <a href="#"><img src="assets/img/about/team-1.jpg" alt=""></a>
-                                    </div>
-                                    <figcaption class="testimonial_content">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even</p>
-                                        <h3><a href="#">John Sullivan</a><span> - Customer</span></h3>
-                                    </figcaption>
-                                    
-                                </figure>
-                            </article> 
-                            <article class="single_testimonial">
-                                <figure>
-                                    <div class="testimonial_thumb">
-                                        <a href="#"><img src="assets/img/about/team-2.jpg" alt=""></a>
-                                    </div>
-                                    <figcaption class="testimonial_content">
-                                        <p>College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites</p>
-                                        <h3><a href="#">Jenifer Brown</a><span> - Manager of AZ</span></h3>
-                                    </figcaption>
-                                    
-                                </figure>
-                            </article>      
-                        </div>   
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="skill-group reveal">
+        <h4><i class="fa-solid fa-database"></i> Databases</h4>
+        <div class="pill-wrap">
+          <span class="pill">MySQL (MySQLi)</span>
+          <span class="pill">Microsoft SQL Server</span>
         </div>
-    </section><!--/Testimonials-->
-
-    <!--Blog-->
-    <section class="pt-60">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <div class="section-title">
-                        <h2>Blog Posts</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row blog_wrapper">
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <article class="single_blog mb-60">
-                        <figure>
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="assets/img/blog/blog2.jpg" alt=""></a>
-                            </div>
-                            <figcaption class="blog_content">
-                                <h3><a href="blog-details.html">How to start drone</a></h3>
-                                <div class="blog_meta">                                        
-                                    <span class="author">Posted by : <a href="#">Rahul</a> / </span>
-                                    <span class="post_date"><a href="#">Sep 20, 2019</a></span>
-                                </div>
-                                <div class="blog_desc">
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less</p>
-                                </div>
-                                <footer class="readmore_button">
-                                    <a href="blog-details.html">read more</a>
-                                </footer>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <article class="single_blog blog_bidio mb-60">
-                        <figure>
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="assets/img/blog/blog1.jpg" alt=""></a>
-                            </div>
-                            <figcaption class="blog_content">
-                                <h3><a href="blog-details.html">See the tutorial</a></h3>
-                                <div class="blog_meta">                                        
-                                    <span class="author">Posted by : <a href="#">Rahul</a> / </span>
-                                    <span class="post_date">On : <a href="#">Aug 25, 2019</a></span>
-                                </div>
-                                <div class="blog_desc">
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less</p>
-                                </div>
-                                <footer class="readmore_button">
-                                    <a href="blog-details.html">read more</a>
-                                </footer>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <article class="single_blog mb-60">
-                        <figure>
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="assets/img/blog/blog-details.jpg" alt=""></a>
-                            </div>
-                            <figcaption class="blog_content">
-                                <h3><a href="blog-details.html">How to start drone</a></h3>
-                                <div class="blog_meta">                                        
-                                    <span class="author">Posted by : <a href="#">Rahul</a> / </span>
-                                    <span class="post_date"><a href="#">Sep 20, 2019</a></span>
-                                </div>
-                                <div class="blog_desc">
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less</p>
-                                </div>
-                                <footer class="readmore_button">
-                                    <a href="blog-details.html">read more</a>
-                                </footer>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-            </div>
+      </div>
+      <div class="skill-group reveal">
+        <h4><i class="fa-solid fa-diagram-project"></i> DevOps &amp; Integration</h4>
+        <div class="pill-wrap">
+          <span class="pill">Git (Bitbucket)</span>
+          <span class="pill">Postman — Biometric Device API integrations</span>
         </div>
-    </section><!--/Blog-->
-
-    <!--shipping area start-->
-    <section class="shipping_area">
-        <div class="container">
-            <div class=" row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                    <div class="single_shipping">
-                        <div class="shipping_icone">
-                            <img src="assets/img/about/shipping1.png" alt="">
-                        </div>
-                        <div class="shipping_content">
-                            <h2>Free Shipping</h2>
-                            <p>Free shipping on all US order</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                    <div class="single_shipping">
-                        <div class="shipping_icone">
-                            <img src="assets/img/about/shipping2.png" alt="">
-                        </div>
-                        <div class="shipping_content">
-                            <h2>Support 24/7</h2>
-                            <p>Contact us 24 hours a day</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                    <div class="single_shipping">
-                        <div class="shipping_icone">
-                            <img src="assets/img/about/shipping3.png" alt="">
-                        </div>
-                        <div class="shipping_content">
-                            <h2>100% Money Back</h2>
-                            <p>You have 30 days to Return</p>
-                        </div>
-                    </div>
-                </div> 
-                <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                    <div class="single_shipping">
-                        <div class="shipping_icone">
-                            <img src="assets/img/about/shipping4.png" alt="">
-                        </div>
-                        <div class="shipping_content">
-                            <h2>Payment Secure</h2>
-                            <p>We ensure secure payment</p>
-                        </div>
-                    </div>
-                </div>                          
-            </div>
+      </div>
+      <div class="skill-group legacy reveal">
+        <h4><i class="fa-solid fa-clock-rotate-left"></i> Legacy &amp; Enterprise</h4>
+        <div class="pill-wrap">
+          <span class="pill">VB.NET</span>
+          <span class="pill">C# Windows Forms</span>
         </div>
-    </section>
-    <!--shipping area end-->
-	
-	
-    <!--footer area start-->
-    <footer class="footer_widgets">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="widgets_container contact_us">
-                        <div class="footer_logo">
-                            <a href="#"><img src="assets/img/logo/logo.png" alt=""></a>
-                        </div>
-                        <div class="footer_contact">
-                            <p>John draw real poor on call my from. May she mrs furnished discourse extremely. Ask doubt noisy shade guest Lose away off why half led have near bed. At engage simple father of period others except</p>
-                            <p>Ask doubt noisy shade guest Lose away off why half led have near bed. At engage simple father of period others except</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="widgets_container widget_menu">
-                        <h3>Information</h3>
-                        <div class="footer_menu">
-                            <ul>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="blog.html">Delivery Information</a></li>
-                                <li><a href="contact.html">Privacy Policy</a></li>
-                                <li><a href="services.html">Terms & Conditions</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Gift Certificates</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="widgets_container widget_menu">
-                        <h3>My Account</h3>
-                        <div class="footer_menu">
-                            <ul>
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Order History</a></li>
-                                <li><a href="wishlist.html">Wish List</a></li>
-                                <li><a href="#">Newsletter</a></li>
-                                <li><a href="#">Affiliate</a></li>
-                                <li><a href="faq.html">International Orders</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="widgets_container newsletter">
-                        <h3>Follow Us</h3>
-                        <div class="footer_social_link">
-                            <ul>
-                                <li><a class="facebook" href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="twitter" href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="instagram" href="#" title="instagram"><i class="fa fa-instagram"></i></a></li>
-                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a class="rss" href="#" title="rss"><i class="fa fa-rss"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="subscribe_form">
-                            <h3>Join Our Newsletter Now</h3>
-                            <form id="mc-form" class="mc-form footer-newsletter" >
-                                <input id="mc-email" type="email" autocomplete="off" placeholder="Your email address..." />
-                                <button id="mc-submit">Subscribe!</button>
-                            </form>
-                            <!-- mailchimp-alerts Start -->
-                            <div class="mailchimp-alerts text-centre">
-                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                            </div><!-- mailchimp-alerts end -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="container">
+    <div class="eyebrow reveal">Experience</div>
+    <h2 class="section-title reveal">Currently <span class="grad-text">building</span>.</h2>
+
+    <div class="exp-card reveal">
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">IT Application Specialist</div>
+          <!-- SWAP: update company name if needed -->
+          <div class="exp-org">Enterprise Systems Group</div>
         </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="copyright_area">
-                            <p> <a href="templateshub.net">Templates Hub</a></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer_payment text-right">
-                            <a href="#"><img src="assets/img/icon/payment.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-    </footer>
-    <!--footer area end-->
-<!-- JS
-============================================ -->
+        <div class="exp-time">Present</div>
+      </div>
 
+      <div class="exp-line">
+        <span class="badge itb">IT</span>
+        <span>Implemented biometric authentication workflows by integrating third-party device APIs via Postman, standardizing attendance capture across sites.</span>
+      </div>
+      <div class="exp-line">
+        <span class="badge devb">DEV</span>
+        <span>Engineered real-time data pipelines using Kafka and Node.js to stream attendance and transaction events into downstream systems.</span>
+      </div>
+      <div class="exp-line">
+        <span class="badge itb">IT</span>
+        <span>Manage systems integration across enterprise applications, coordinating with Bitbucket-based version control and change workflows.</span>
+      </div>
+      <div class="exp-line">
+        <span class="badge devb">DEV</span>
+        <span>Design and ship full-stack tools spanning PHP/MySQL services and modern React/Node interfaces, from schema to UI.</span>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="container">
+    <div class="eyebrow reveal">Selected Work</div>
+    <h2 class="section-title reveal">Projects <span class="grad-text">portfolio</span>.</h2>
+    <p class="section-sub reveal">From desktop applications to real-time web platforms — a timeline of my technical evolution.</p>
 
-<!-- Plugins JS -->
-<script src="assets/js/plugins.js"></script>
+    <div class="project-grid">
 
-<!-- Main JS -->
-<script src="assets/js/main.js"></script>
+      <div class="project-card reveal" data-tilt>
+        <div class="project-index">01 — Legacy</div>
+        <h3>Dental Clinic Management System</h3>
+        <span class="project-stack">VB.NET &amp; MS SQL</span>
+        <p>A full-featured desktop application for patient records, appointment scheduling, and billing.</p>
+        <div class="project-actions">
+          <!-- SWAP LINK -->
+          <a href="#" class="link-btn"><i class="fa-solid fa-file-lines"></i> Case Study</a>
+        </div>
+      </div>
 
+      <div class="project-card reveal" data-tilt>
+        <div class="project-index">02 — Community</div>
+        <h3>Barangay Management System</h3>
+        <span class="project-stack">PHP / MySQL</span>
+        <p>Digitized resident profiling and certificate issuance for a local government unit, replacing manual paper workflows.</p>
+        <div class="project-actions">
+          <!-- SWAP LINK -->
+          <a href="#" class="link-btn"><i class="fa-solid fa-file-lines"></i> Case Study</a>
+        </div>
+      </div>
 
+      <div class="project-card reveal" data-tilt>
+        <div class="project-index">03 — Enterprise</div>
+        <h3>Logistic Transaction System</h3>
+        <span class="project-stack">C# / SQL Server</span>
+        <p>Real-time fleet management and supply chain transaction monitoring across deliveries and inventory turnover.</p>
+        <div class="project-actions">
+          <!-- SWAP LINK -->
+          <a href="#" class="link-btn"><i class="fa-solid fa-file-lines"></i> Case Study</a>
+        </div>
+      </div>
 
+      <div class="project-card reveal" data-tilt>
+        <div class="project-index">04 — Modern · Current</div>
+        <h3>EmpHub — Employee &amp; HR Platform</h3>
+        <span class="project-stack modern">React + Node + MySQL</span>
+        <p>An ongoing modern HR/Employee platform centralizing employee data and organizational analytics.</p>
+        <div class="project-actions">
+          <!-- SWAP LINK -->
+          <a href="#" class="link-btn"><i class="fa-solid fa-file-lines"></i> Case Study</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact">
+  <div class="container">
+    <div class="foot-cta reveal">
+      <h2>Let's <span class="grad-text">Connect.</span></h2>
+      <p class="foot-sub">Enterprise-grade reliability, delivered with modern web craft. Open to full-stack roles, systems work, or a conversation.</p>
+    </div>
+
+    <div class="foot-links reveal">
+      <!-- SWAP: real profile links -->
+      <a href="#" class="foot-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" class="foot-link" aria-label="Bitbucket"><i class="fa-brands fa-bitbucket"></i></a>
+      <a href="mailto:miko.bitar@example.com" class="foot-link" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Miko Bitar</span>
+      <span>Built with vanilla HTML / CSS / JS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Sticky glare (follows cursor) ---------- */
+  var glare = document.getElementById('glare');
+  if(!reduceMotion){
+    window.addEventListener('mousemove', function(e){
+      glare.style.transform = 'translate(' + (e.clientX - 320) + 'px,' + (e.clientY - 320) + 'px)';
+    }, { passive:true });
+  } else {
+    glare.style.display = 'none';
+  }
+
+  /* ---------- Role-card cursor spotlight ---------- */
+  document.querySelectorAll('.role-card').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  /* ============================================================
+     GLOBAL PARALLAX ENGINE
+     Two coordinated systems sharing one rAF loop:
+     1) Hero mouse-parallax layers (tech icons + terminal) — react
+        to cursor position, plus a scroll drift term.
+     2) Whole-document background blobs (.p-blob) — absolutely
+        positioned across the full page height, each lagging
+        behind normal scroll by (1 - speed), so they visibly
+        move slower than the foreground content as you scroll.
+     ============================================================ */
+  var hero = document.querySelector('.hero');
+  var mouseLayers = document.querySelectorAll('.hero [data-depth]');
+  var docBlobs = document.querySelectorAll('.p-blob[data-speed]');
+  var rafId = null, mx = 0, my = 0, lastScrollY = window.scrollY || 0;
+
+  function renderParallax(){
+    mouseLayers.forEach(function(el){
+      var depth = parseFloat(el.getAttribute('data-depth')) || 0;
+      var mxOff = mx * depth * 60;
+      var myOff = my * depth * 60;
+      var scrollDrift = lastScrollY * depth * 0.4;
+      el.style.transform = 'translate3d(' + mxOff + 'px,' + (myOff - scrollDrift) + 'px,0)';
+    });
+    docBlobs.forEach(function(el){
+      var speed = parseFloat(el.getAttribute('data-speed')) || 0.4;
+      var lag = lastScrollY * (1 - speed);
+      el.style.transform = 'translate3d(0,' + lag + 'px,0)';
+    });
+    rafId = null;
+  }
+
+  function requestParallaxFrame(){
+    if(!rafId) rafId = requestAnimationFrame(renderParallax);
+  }
+
+  if(!reduceMotion){
+    if(hero){
+      hero.addEventListener('mousemove', function(e){
+        var r = hero.getBoundingClientRect();
+        mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        my = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        requestParallaxFrame();
+      }, { passive:true });
+    }
+    window.addEventListener('scroll', function(){
+      lastScrollY = window.scrollY || window.pageYOffset || 0;
+      requestParallaxFrame();
+    }, { passive:true });
+    requestParallaxFrame();
+  }
+
+  /* ---------- Intersection Observer: scroll-triggered fade-ins ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---------- Skill pills: glow "typing in" reveal, staggered per group ---------- */
+  var pillIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var pills = entry.target.querySelectorAll('.pill');
+        pills.forEach(function(pill, i){
+          setTimeout(function(){ pill.classList.add('is-visible'); }, i * 90);
+        });
+        pillIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-group').forEach(function(el){ pillIo.observe(el); });
+
+  /* ---------- Stat counters ---------- */
+  var statObserved = false;
+  var statIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting && !statObserved){
+        statObserved = true;
+        document.querySelectorAll('.stat-num').forEach(function(el){
+          var target = parseFloat(el.getAttribute('data-count'));
+          var suffix = el.getAttribute('data-suffix') || '+';
+          var current = 0;
+          var step = Math.max(target / 60, 0.5);
+          var timer = setInterval(function(){
+            current += step;
+            if(current >= target){
+              current = target;
+              clearInterval(timer);
+            }
+            el.textContent = (Number.isInteger(target) ? Math.floor(current) : current.toFixed(1)) + suffix;
+          }, 20);
+        });
+        statIo.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  var statGrid = document.querySelector('.stat-grid');
+  if(statGrid) statIo.observe(statGrid);
+
+  /* ---------- Project card tilt-on-hover ---------- */
+  document.querySelectorAll('[data-tilt]').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      if(reduceMotion) return;
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(700px) rotateX(' + (py * -6) + 'deg) rotateY(' + (px * 8) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function(){
+      card.style.transform = 'perspective(700px) rotateX(0) rotateY(0)';
+    });
+  });
+})();
+</script>
 </body>
-
-<!--   03:22:07 GMT -->
 </html>
