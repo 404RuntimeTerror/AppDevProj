@@ -28,3 +28,204 @@ nav ul a{color:var(--mute);text-decoration:none;font-size:.92rem;font-weight:500
 /* hero */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .layer{position:absolute;will-change:transform;pointer-events:none}
+.orb{border-radius:50%;filter:blur(70px);opacity:.55}
+.o1{width:38rem;height:38rem;background:var(--vio);left:-10rem;top:-8rem}
+.o2{width:30rem;height:30rem;background:var(--teal);right:-8rem;top:22%;opacity:.35}
+.o3{width:22rem;height:22rem;background:var(--gold);left:38%;bottom:-8rem;opacity:.28}
+.floor{left:-40%;right:-40%;bottom:-4%;height:55%;background:
+ linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 56px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/72px 100%;
+ transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;-webkit-mask:linear-gradient(transparent,#000 70%);mask:linear-gradient(transparent,#000 70%)}
+.chip{padding:.45rem .9rem;border:1px solid var(--line);border-radius:99px;background:rgba(20,30,68,.55);backdrop-filter:blur(6px);font:600 .85rem var(--head);color:var(--ink)}
+.hero .wrap{padding-top:5rem;padding-bottom:4rem;z-index:2}
+.kick{color:var(--gold);font:600 1rem var(--head);margin-bottom:1.2rem}
+h1{font-size:clamp(2.5rem,7.4vw,5.6rem);font-weight:800;max-width:15ch}
+.sub{max-width:44ch;color:var(--mute);font-size:1.15rem;margin:1.6rem 0 2rem}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{padding:.85rem 1.4rem;border-radius:10px;font:600 .98rem var(--head);text-decoration:none;border:1px solid var(--line);color:var(--ink);transition:transform .2s,box-shadow .2s}
+.btn.p{background:linear-gradient(135deg,var(--teal),#3AA8E8);color:#04101E;border:0}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px var(--teal)}
+.cue{position:absolute;bottom:1.5rem;left:50%;translate:-50% 0;color:var(--mute);font-size:.85rem;z-index:2}
+
+/* exploded stack */
+.depth{height:340vh;position:relative}
+.pin{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:2rem;max-width:66rem;margin:0 auto;padding:0 1.5rem}
+@media(max-width:800px){.pin{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding-top:4.5rem}}
+.cap h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1.2rem}
+.cap ol{list-style:none;margin:0;padding:0}
+.cap li{padding:.8rem 0 .8rem 1.1rem;border-left:3px solid var(--line);color:var(--mute);transition:.35s}
+.cap li b{display:block;font:700 1.1rem var(--head);color:var(--mute);transition:.35s}
+.cap li.on{border-color:var(--gold);color:var(--ink)}.cap li.on b{color:var(--gold)}
+.cap li span{display:block;font-size:.95rem;max-height:0;overflow:hidden;transition:max-height .4s}
+.cap li.on span{max-height:5rem}
+.scene{position:relative;height:min(30rem,52vh);perspective:1400px}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-32deg) scale(var(--sc,1))}
+.plane{position:absolute;left:50%;top:50%;width:17rem;height:17rem;margin:-8.5rem 0 0 -8.5rem;border-radius:18px;border:1px solid var(--line);
+ background:linear-gradient(135deg,rgba(124,108,255,.28),rgba(79,224,208,.16));backdrop-filter:blur(3px);
+ transform:translateZ(calc((var(--i) - 1.5) * var(--gap)));transition:border-color .35s,box-shadow .35s;display:flex;align-items:flex-end;padding:1rem;font:700 1rem var(--head)}
+.plane.on{border-color:var(--gold);box-shadow:0 0 50px -8px var(--gold)}
+@media(max-width:800px){.rig{--sc:.7}}
+
+/* sections */
+section.s{padding:7rem 0 0}
+h2.t{font-size:clamp(1.9rem,4.5vw,3rem);margin-bottom:2.2rem;max-width:18ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1.2rem;list-style:none;margin:0;padding:0}
+.facts li{padding:1.5rem;border:1px solid var(--line);border-radius:16px;background:rgba(20,30,68,.4)}
+.facts b{display:block;font:800 2.6rem var(--head);color:var(--gold);letter-spacing:-.03em}
+.facts span{color:var(--mute);font-size:.95rem}
+.job{border:1px solid var(--line);border-radius:18px;padding:2rem;background:rgba(20,30,68,.4)}
+.jh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1rem}.jh time{color:var(--gold);font-weight:600}
+.org{color:var(--mute);margin-bottom:1rem}.job ul{margin:0;padding-left:1.2rem}.job li{margin-bottom:.6rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.4rem}
+.card{border:1px solid var(--line);border-radius:18px;padding:1.6rem;background:linear-gradient(160deg,rgba(124,108,255,.16),rgba(13,21,48,.7));transition:border-color .25s}
+.card:hover{border-color:var(--teal)}
+.card:nth-child(even){margin-top:2.5rem}
+@media(max-width:700px){.card:nth-child(even){margin-top:0}}
+.card h3{font-size:1.3rem;margin-bottom:.3rem}.st{color:var(--teal);font-size:.9rem;margin-bottom:.8rem}
+.card p{color:var(--mute);margin:0}
+.tag{margin-left:.5rem;font:600 .75rem var(--head);color:#04101E;background:var(--gold);padding:.15rem .55rem;border-radius:99px;vertical-align:middle}
+.sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.8rem 2.5rem}
+.sk h3{font-size:1rem;margin-bottom:.5rem;color:var(--gold)}.sk div p{color:var(--mute)}
+.contact{text-align:center;padding-bottom:6rem}.contact h2{margin:0 auto 1.2rem;max-width:16ch}
+.contact p{color:var(--mute);margin:0 auto 2rem;max-width:40ch}
+.links{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;list-style:none;margin:0;padding:0}
+footer{text-align:center;color:var(--mute);font-size:.88rem;padding:0 0 2.5rem}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="bar" aria-hidden="true"></div>
+<header><nav aria-label="Main"><a class="brand" href="#top">Miko Bitar</a>
+<ul><li><a href="#work">Results</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></nav></header>
+
+<main id="top">
+<div class="hero">
+  <div class="layer orb o1" data-speed="-.25"></div>
+  <div class="layer orb o2" data-speed="-.4"></div>
+  <div class="layer orb o3" data-speed="-.15"></div>
+  <div class="layer floor" data-speed="-.12"></div>
+  <span class="layer chip" data-speed=".18" style="left:8%;top:22%">PHP</span>
+  <span class="layer chip" data-speed=".35" style="right:12%;top:20%">Kafka</span>
+  <span class="layer chip" data-speed=".1" style="left:14%;bottom:26%">MySQL</span>
+  <span class="layer chip" data-speed=".28" style="right:9%;bottom:30%">Redis</span>
+  <span class="layer chip" data-speed=".22" style="left:46%;top:14%">C#</span>
+  <span class="layer chip" data-speed=".42" style="right:30%;bottom:16%">SQL Server</span>
+  <div class="wrap">
+    <p class="kick">Miko Bitar · IT Application Specialist</p>
+    <h1>I build the HR and attendance systems people use every day.</h1>
+    <p class="sub">Full-stack developer at SAL Group of Company. PHP, JavaScript, MySQL and SQL Server, with Redis and Kafka working behind the scenes.</p>
+    <div class="btns"><a class="btn p" href="#projects">See my work</a><a class="btn" href="Miko_Bitar_Resume.pdf" download>Download resume</a></div>
+  </div>
+  <div class="cue">Scroll to go under the hood</div>
+</div>
+
+<div class="depth" id="depth">
+  <div class="pin">
+    <div class="cap">
+      <h2>Four layers behind every request</h2>
+      <ol id="caps">
+        <li class="on"><b>Interface</b><span>HTML, CSS, JavaScript and AJAX forms that employees use to file leave, overtime and official business.</span></li>
+        <li><b>Application</b><span>PHP modules with role-based access for employees, managers and HR, plus approval workflow rules.</span></li>
+        <li><b>Data</b><span>MySQL and SQL Server schemas, queries and stored procedures for attendance and requests.</span></li>
+        <li><b>Speed and queues</b><span>Redis caches hot data. BGService, written in C#, sends approval emails through Kafka.</span></li>
+      </ol>
+    </div>
+    <div class="scene" aria-hidden="true"><div class="rig" id="rig">
+      <div class="plane" style="--i:3">Interface</div><div class="plane" style="--i:2">Application</div>
+      <div class="plane" style="--i:1">Data</div><div class="plane" style="--i:0">Redis + Kafka</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="wrap">
+<section class="s" id="work" aria-labelledby="w-h">
+  <h2 class="t" id="w-h">Results so far</h2>
+  <ul class="facts">
+    <li data-speed=".03"><b>200+</b><span>employees using EmpHub for daily HR transactions</span></li>
+    <li data-speed=".07"><b>3 mo</b><span>from joining to the first EmpHub MVP in production</span></li>
+    <li data-speed=".03"><b>30%</b><span>faster request processing after automating approvals</span></li>
+    <li data-speed=".07"><b>20%</b><span>faster application load after performance fixes</span></li>
+  </ul>
+</section>
+
+<section class="s" id="experience" aria-labelledby="e-h">
+  <h2 class="t" id="e-h">Experience</h2>
+  <article class="job">
+    <div class="jh"><h3>IT Application Specialist</h3><time>July 2024 – Present</time></div>
+    <p class="org">SAL Group of Company, Euthynnus Venture Corporation · Information System Management Group</p>
+    <ul>
+      <li>Build EmpHub, an internal HR web app where employees file and track leave, excuse, overtime and official business requests.</li>
+      <li>Design database schemas, queries and stored procedures in MySQL and SQL Server for attendance, user profiles and request workflows.</li>
+      <li>Added a Redis caching layer for frequently used data, and wrote BGService, a C# background service that sends approval emails through Kafka.</li>
+      <li>Work in Agile sprints with Git, Bitbucket and Sourcetree, including feature branches and code reviews.</li>
+      <li>Write technical specs, user guides and deployment notes so the next person can pick the system up quickly.</li>
+    </ul>
+  </article>
+</section>
+
+<section class="s" id="projects" aria-labelledby="p-h">
+  <h2 class="t" id="p-h">Projects</h2>
+  <div class="cards">
+    <article class="card" data-speed=".04"><h3>EmpHub</h3><div class="st">PHP, JavaScript, MySQL / SQL Server, Redis</div><p>Multi-module HR system with role-based access, attendance dashboards, request tracking and email approvals.</p></article>
+    <article class="card" data-speed=".09"><h3>BGService</h3><div class="st">C#, Kafka</div><p>Background service that queues and sends EmpHub's approval emails, so the web app never waits on the mail server.</p></article>
+    <article class="card" data-speed=".04"><h3>Logistic Transaction System</h3><div class="st">C#, SQL Server</div><p>Fleet and supply chain monitoring across deliveries and inventory turnover.</p></article>
+    <article class="card" data-speed=".09"><h3>Barangay Management System</h3><div class="st">PHP, MySQL</div><p>Resident profiling and certificate issuance for a local government unit, replacing paper workflows.</p></article>
+    <article class="card" data-speed=".04"><h3>Dental Clinic Management System</h3><div class="st">VB.NET, MS SQL</div><p>Desktop application for patient records, appointment scheduling and billing.</p></article>
+    <article class="card" data-speed=".09"><h3>Personal project<span class="tag">In progress</span></h3><div class="st">React, Node.js, BullMQ, PostgreSQL</div><p>A side project on a new stack, built to move from PHP into a modern JavaScript full-stack workflow.</p></article>
+  </div>
+</section>
+
+<section class="s" id="skills" aria-labelledby="s-h">
+  <h2 class="t" id="s-h">Skills</h2>
+  <div class="sk">
+    <div><h3>Front end</h3><p>HTML5, CSS3, JavaScript, AJAX, jQuery</p></div>
+    <div><h3>Back end</h3><p>PHP, Laravel, CodeIgniter, C#</p></div>
+    <div><h3>Data</h3><p>MySQL, SQL Server, T-SQL</p></div>
+    <div><h3>Caching and queues</h3><p>Redis, Kafka</p></div>
+    <div><h3>Tools</h3><p>Git, Bitbucket, Sourcetree, Postman, XAMPP</p></div>
+    <div><h3>Learning now</h3><p>React, Node.js, BullMQ, PostgreSQL</p></div>
+  </div>
+</section>
+
+<section class="s contact" id="contact" aria-labelledby="c-h">
+  <h2 class="t" id="c-h">Let's build something that lasts</h2>
+  <p>Open to PHP and full-stack roles, remote or on site.</p>
+  <ul class="links">
+    <li><a class="btn p" href="mailto:bitar.miko@gmail.com">Email me</a></li>
+    <li><a class="btn" href="https://www.linkedin.com/in/miko-bitar-b23b8372" rel="noopener">LinkedIn</a></li>
+    <li><a class="btn" href="https://github.com/404RuntimeTerror" rel="noopener">GitHub</a></li>
+    <li><a class="btn" href="tel:+639956259810">+63 995 625 9810</a></li>
+  </ul>
+</section>
+<footer>© <span id="yr">2026</span> Miko F. Bitar</footer>
+</div>
+</main>
+
+<script>
+(function(){
+var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var els=[].slice.call(document.querySelectorAll('[data-speed]')),base=[];
+var depth=document.getElementById('depth'),rig=document.getElementById('rig');
+var caps=[].slice.call(document.querySelectorAll('#caps li')),planes=[].slice.call(document.querySelectorAll('.plane'));
+var bar=document.getElementById('bar'),mx=0,my=0,tick=false;
+function measure(){base=els.map(function(e){var r=e.getBoundingClientRect();return r.top+scrollY+r.height/2-(parseFloat(e.dataset.ty)||0)})}
+function frame(){
+  tick=false;var y=scrollY,vh=innerHeight;
+  if(!rm){els.forEach(function(e,i){var s=+e.dataset.speed,c=base[i]-(y+vh/2),ty=c*s;e.dataset.ty=ty;
+    e.style.transform='translate3d('+(mx*s*-60)+'px,'+(ty+my*s*-40)+'px,0)'})}
+  var max=document.documentElement.scrollHeight-vh;bar.style.transform='scaleX('+(max>0?y/max:0)+')';
+  var top=depth.offsetTop,p=Math.min(1,Math.max(0,(y-top)/(depth.offsetHeight-vh)));
+  rig.style.setProperty('--gap',(rm?60:10+p*80)+'px');
+  var a=Math.min(3,Math.floor(p*4));
+  caps.forEach(function(l,i){l.classList.toggle('on',i===a)});
+  planes.forEach(function(pl,i){pl.classList.toggle('on',(3-i)===a)});
+}
+function req(){if(!tick){tick=true;requestAnimationFrame(frame)}}
+addEventListener('scroll',req,{passive:true});
+addEventListener('resize',function(){els.forEach(function(e){e.style.transform=''});measure();req()});
+addEventListener('mousemove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;req()},{passive:true});
+document.getElementById('yr').textContent=new Date().getFullYear();
+addEventListener('load',function(){measure();req()});measure();req();
+})();
+</script>
+</body>
+</html>
